@@ -51,6 +51,27 @@ function reset() {
     });
 }
 
+function getOne(request) {
+  return cities.findOne(request);
+}
+
+function getByInseeCode(value) {
+  return getOne({inseeCode: value});
+}
+
+function search(request) {
+  return cities.find(request);
+}
+
+function searchByName(value) {
+  return search({
+    $or: [
+      {$text: {$search: value}},
+      {name: {$regex: '^' + value, $options: 'i'}}
+    ]
+  });
+}
+
 /**
  * Add needed fields in the city object before saving.
  *
@@ -96,5 +117,7 @@ function createOrUpdate(city) {
 
 module.exports = {
   createOrUpdate,
-  reset
+  reset,
+  getByInseeCode,
+  searchByName
 };
