@@ -13,6 +13,9 @@ prune:
 bshell:
 	docker-compose exec node-back sh
 
+fshell:
+	docker-compose exec node-front sh
+
 build:
 	docker-compose exec node-back yarn install
 	docker-compose exec node-back yarn run import
@@ -21,3 +24,4 @@ build:
 
 stop: down
 bsh: bshell
+fsh: fshell

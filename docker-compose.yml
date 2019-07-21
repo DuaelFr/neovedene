@@ -39,6 +39,19 @@ services:
       - 'traefik.port=3000'
       - 'traefik.frontend.rule=Host:back.${PROJECT_BASE_URL}'
 
+  node-front:
+    image: node:current-alpine
+    depends_on:
+      - node-back
+    working_dir: /app
+    command: sh -c 'yarn install && yarn run start'
+    volumes:
+      - ./frontend:/app
+    labels:
+      - 'traefik.backend=${PROJECT_NAME}_node_front'
+      - 'traefik.port=3000'
+      - 'traefik.frontend.rule=Host:${PROJECT_BASE_URL}'
+
   traefik:
     image: traefik
     container_name: "${PROJECT_NAME}_traefik"
