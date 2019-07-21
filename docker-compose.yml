@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASS}
+    volumes:
+      - ./data/mongo:/data/db
+
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_PASS}
+    labels:
+      - 'traefik.backend=${PROJECT_NAME}_mongo'
+      - 'traefik.port=8081'
+      - 'traefik.frontend.rule=Host:mongo.${PROJECT_BASE_URL}'
+
+  node-back:
+    image: node:current-alpine
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: "${MONGO_USER}:${MONGO_PASS}@mongo:27017/${MONGO_DB}"
+    working_dir: /app
+    command: sh -c 'yarn install && yarn run start'
+    volumes:
+      - ./backend:/app
+    labels:
+      - 'traefik.backend=${PROJECT_NAME}_node_back'
+      - 'traefik.port=3000'
+      - 'traefik.frontend.rule=Host:back.${PROJECT_BASE_URL}'
+
+  traefik:
+    image: traefik
+    container_name: "${PROJECT_NAME}_traefik"
+    command: -c /dev/null --web --docker --logLevel=INFO
+    ports:
+      - '8000:80'
+#      - '8080:8080' # Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
