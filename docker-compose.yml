@@ -33,6 +33,7 @@ services:
     command: sh -c 'yarn install && yarn run start'
     volumes:
       - ./backend:/app
+      - ./data/src:/data
     labels:
       - 'traefik.backend=${PROJECT_NAME}_node_back'
       - 'traefik.port=3000'
