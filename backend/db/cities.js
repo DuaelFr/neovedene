@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const db = require('./connection');
 
 const schema = Joi.object().keys({
