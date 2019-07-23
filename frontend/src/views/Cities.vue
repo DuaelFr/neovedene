@@ -41,6 +41,11 @@
             this.loaded = true
           })
       }
+    },
+    metaInfo() {
+      return {
+        title: this.loaded ? this.cities.length + ' results for "' + this.$route.params.search + '"' : 'Loading...',
+      };
     }
   }
 </script>

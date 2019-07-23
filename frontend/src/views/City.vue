@@ -14,7 +14,8 @@
     data() {
       return {
         city: {
-          name: "Loading..."
+          name: "Loading...",
+          inseeCode: "00000",
         }
       }
     },
@@ -32,6 +33,11 @@
           .then(response => response.json())
           .then(data => this.city = data)
       }
-    }
+    },
+    metaInfo() {
+      return {
+        title: this.city.name + ' (' + this.city.inseeCode.substr(0, 2) + ')',
+      }
+    },
   }
 </script>

@@ -8,6 +8,15 @@
   </div>
 </template>
 
+<script>
+  export default {
+    metaInfo: {
+      title: 'Neo Vedene',
+      titleTemplate: '%s - Neo Vedene',
+    }
+  }
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

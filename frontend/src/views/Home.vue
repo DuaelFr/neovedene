@@ -11,5 +11,8 @@
 
   export default {
     components: {Autocomplete},
+    metaInfo: {
+      titleTemplate: null,
+    }
   }
 </script>
