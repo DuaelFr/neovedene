@@ -1,11 +1,13 @@
 <template>
-  <autocomplete
-    :search="search"
-    placeholder="Search for a city"
-    aria-label="Search for a city"
-    :get-result-value="getResultValue"
-    @submit="handleSubmit"
-  ></autocomplete>
+  <div class="autocomplete__wrapper">
+    <autocomplete
+      :search="search"
+      placeholder="Search for a city"
+      aria-label="Search for a city"
+      :get-result-value="getResultValue"
+      @submit="handleSubmit"
+    ></autocomplete>
+  </div>
 </template>
 
 <script>
@@ -42,3 +44,11 @@
     }
   }
 </script>
+
+<style>
+  .autocomplete__wrapper {
+    margin: auto;
+    max-width: 500px;
+    width: 90%;
+  }
+</style>
