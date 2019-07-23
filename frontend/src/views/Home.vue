@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home wrapper">
     <h1>Neo Vedene</h1>
     <p>Welcome on the Neo Vedene project. Please search for a city using the text field below.</p>
     <Autocomplete></Autocomplete>

@@ -1,5 +1,5 @@
 <template>
-  <div class="autocomplete__wrapper">
+  <div class="wrapper">
     <autocomplete
       :search="search"
       placeholder="Search for a city"
@@ -43,11 +43,3 @@
     }
   }
 </script>
-
-<style>
-  .autocomplete__wrapper {
-    margin: auto;
-    max-width: 500px;
-    width: 90%;
-  }
-</style>

@@ -2,7 +2,7 @@
   <div class="cities">
     <Autocomplete></Autocomplete>
     <h1>Search city</h1>
-    <ul class="results">
+    <ul class="results wrapper">
       <li v-for="city in cities">
         <router-link :to="{ name: 'city', params: { insee: city.key } }">
           {{ city.value.name }} ({{ city.key.substr(0, 2) }})
@@ -42,9 +42,6 @@
 
 <style>
   .results {
-    margin: auto;
-    max-width: 500px;
     text-align: left;
-    width: 90%;
   }
 </style>
