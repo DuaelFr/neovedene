@@ -14,6 +14,13 @@ export default new Router({
       component: Home,
     },
     {
+      path: '/city/:insee',
+      name: 'city',
+      component() {
+        return import(/* webpackChunkName: "city" */ './views/City.vue');
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

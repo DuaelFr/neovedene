@@ -32,8 +32,7 @@
       },
       handleSubmit(result) {
         if (result && isInsee(result.key)) {
-          // Todo search results list
-          console.log(result.key)
+          this.$router.push({ name: 'city', params: { insee: result.key } })
         }
         else {
           // Todo search results list
