@@ -64,12 +64,15 @@ function search(request) {
 }
 
 function searchByName(value) {
-  return search({
-    $or: [
-      {$text: {$search: value}},
-      {name: {$regex: '^' + value, $options: 'i'}}
-    ]
-  });
+  return search(
+    {
+      $or: [
+        {$text: {$search: value}},
+        {name: {$regex: '^' + value, $options: 'i'}}
+      ]
+    },
+    { sort: { name: 1, inseeCode: 1 } }
+  );
 }
 
 /**
