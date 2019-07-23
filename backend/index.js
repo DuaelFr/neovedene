@@ -30,18 +30,26 @@ app.get('/cities', (req, res) => {
     else {
       cities.searchByName(req.query.q)
         .then((data) => {
-          const max = 5;
-          for (let index = 0; index < Math.min(data.length, max); index++) {
-            result.push({
-              key: data[index].inseeCode,
-              value: data[index].name + " (" + data[index].postalCode.join(", ") + ")",
-            });
-          }
-          if (data.length > max) {
+          if (data.length === 0) {
             result.push({
               key: req.query.q,
-              value: (data.length - max) + " more...",
+              value: `No result for "${req.query.q}"`,
             });
+          }
+          else {
+            const max = 5;
+            for (let index = 0; index < Math.min(data.length, max); index++) {
+              result.push({
+                key: data[index].inseeCode,
+                value: data[index].name + " (" + data[index].postalCode.join(", ") + ")",
+              });
+            }
+            if (data.length > max) {
+              result.push({
+                key: req.query.q,
+                value: (data.length - max) + " more...",
+              });
+            }
           }
           resolve(result);
         });
