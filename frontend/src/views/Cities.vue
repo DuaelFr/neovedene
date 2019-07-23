@@ -2,13 +2,14 @@
   <div class="cities">
     <Autocomplete></Autocomplete>
     <h1>Search city</h1>
-    <ul class="results wrapper">
+    <ul class="results wrapper" v-if="loaded">
       <li v-for="city in cities">
         <router-link :to="{ name: 'city', params: { insee: city.key } }">
           {{ city.value.name }} ({{ city.key.substr(0, 2) }})
         </router-link>
       </li>
     </ul>
+    <p class="wrapper" v-else>Loading...</p>
   </div>
 </template>
 
@@ -19,6 +20,7 @@
     components: {Autocomplete},
     data() {
       return {
+        loaded: false,
         cities: []
       }
     },
@@ -34,7 +36,10 @@
         const url = `http://back.neovedene.localhost:8000/cities?q=${encodeURI(this.$route.params.search)}&full=1`
         fetch(url)
           .then(response => response.json())
-          .then(data => this.cities = data)
+          .then(data => {
+            this.cities = data
+            this.loaded = true
+          })
       }
     }
   }
