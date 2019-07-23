@@ -41,7 +41,7 @@ app.get('/cities', (req, res) => {
             for (let index = 0; index < Math.min(data.length, max); index++) {
               result.push({
                 key: data[index].inseeCode,
-                value: data[index].name + " (" + data[index].postalCode.join(", ") + ")",
+                value: data[index].name + " (" + data[index].inseeCode.substr(0, 2) + ")",
               });
             }
             if (data.length > max) {
