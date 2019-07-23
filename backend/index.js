@@ -19,19 +19,29 @@ app.get('/', (req, res) => {
 
 app.get('/cities', (req, res) => {
   new Promise((resolve) => {
-    let result = {};
-    if (req.query.test.length < 3) {
-      result[req.query.test] = "You have to input 3 characters or more.";
+    let result = [];
+    if (req.query.q.length < 3) {
+      result.push({
+        key: req.query.q,
+        value: "You have to input 3 characters or more.",
+      });
       resolve(result);
     }
     else {
-      cities.searchByName(req.query.test)
+      cities.searchByName(req.query.q)
         .then((data) => {
-          for (let index = 0; index < Math.min(data.length, 10); index++) {
-            result[data[index].inseeCode] = data[index].name + " (" + data[index].postalCode.join(", ") + ")";
+          const max = 5;
+          for (let index = 0; index < Math.min(data.length, max); index++) {
+            result.push({
+              key: data[index].inseeCode,
+              value: data[index].name + " (" + data[index].postalCode.join(", ") + ")",
+            });
           }
-          if (data.length > 10) {
-            result[req.query.test] = (data.length - 10) + " more...";
+          if (data.length > max) {
+            result.push({
+              key: req.query.q,
+              value: (data.length - max) + " more...",
+            });
           }
           resolve(result);
         });
