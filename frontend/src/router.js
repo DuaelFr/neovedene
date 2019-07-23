@@ -21,6 +21,13 @@ export default new Router({
       },
     },
     {
+      path: '/cities/:search',
+      name: 'cities',
+      component() {
+        return import(/* webpackChunkName: "city" */ './views/Cities.vue');
+      },
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting

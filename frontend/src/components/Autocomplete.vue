@@ -37,8 +37,7 @@
           this.$router.push({ name: 'city', params: { insee: result.key } })
         }
         else {
-          // Todo search results list
-          console.log(lastInput)
+          this.$router.push({ name: 'cities', params: { search: lastInput } })
         }
       }
     }
