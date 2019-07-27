@@ -7,12 +7,12 @@
 </template>
 
 <script>
-  import Autocomplete from '@/components/Autocomplete.vue'
+import Autocomplete from '@/components/Autocomplete.vue';
 
-  export default {
-    components: {Autocomplete},
-    metaInfo: {
-      titleTemplate: null,
-    }
-  }
+export default {
+  components: { Autocomplete },
+  metaInfo: {
+    titleTemplate: null,
+  },
+};
 </script>

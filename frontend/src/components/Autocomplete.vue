@@ -11,35 +11,34 @@
 </template>
 
 <script>
-  import Autocomplete from '@trevoreyre/autocomplete-vue'
-  import '@trevoreyre/autocomplete-vue/dist/style.css'
+import Autocomplete from '@trevoreyre/autocomplete-vue';
+import '@trevoreyre/autocomplete-vue/dist/style.css';
 
-  let lastInput
+let lastInput;
 
-  function isInsee(code) {
-    return (new RegExp('^[0-9][0-9a-z][0-9]{3}$', 'i')).test(code)
-  }
+function isInsee(code) {
+  return (new RegExp('^[0-9][0-9a-z][0-9]{3}$', 'i')).test(code);
+}
 
-  export default {
-    components: {Autocomplete},
-    methods: {
-      search(input) {
-        lastInput = input
-        const url = `http://back.neovedene.localhost:8000/cities?q=${encodeURI(input)}`
-        return fetch(url)
-          .then(response => response.json())
-      },
-      getResultValue(result) {
-        return result.value
-      },
-      handleSubmit(result) {
-        if (result && isInsee(result.key)) {
-          this.$router.push({ name: 'city', params: { insee: result.key } })
-        }
-        else {
-          this.$router.push({ name: 'cities', params: { search: lastInput } })
-        }
+export default {
+  components: { Autocomplete },
+  methods: {
+    search(input) {
+      lastInput = input;
+      const url = `http://back.neovedene.localhost:8000/cities?q=${encodeURI(input)}`;
+      return fetch(url)
+        .then(response => response.json());
+    },
+    getResultValue(result) {
+      return result.value;
+    },
+    handleSubmit(result) {
+      if (result && isInsee(result.key)) {
+        this.$router.push({ name: 'city', params: { insee: result.key } });
+      } else {
+        this.$router.push({ name: 'cities', params: { search: lastInput } });
       }
-    }
-  }
+    },
+  },
+};
 </script>

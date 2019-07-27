@@ -9,12 +9,12 @@
 </template>
 
 <script>
-  export default {
-    metaInfo: {
-      title: 'Neo Vedene',
-      titleTemplate: '%s - Neo Vedene',
-    }
-  }
+export default {
+  metaInfo: {
+    title: 'Neo Vedene',
+    titleTemplate: '%s - Neo Vedene',
+  },
+};
 </script>
 
 <style>
