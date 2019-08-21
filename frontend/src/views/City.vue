@@ -17,6 +17,12 @@
           </a>
         </dd>
       </dl>
+      <div class="city__map">
+        <CityMap
+          v-bind:center="city.coordinates"
+          v-bind:borders="city.borders"
+        ></CityMap>
+      </div>
       <pre style="text-align: left">{{ city }}</pre>
     </div>
   </div>
@@ -34,9 +40,10 @@
 
 <script>
 import Autocomplete from '@/components/Autocomplete.vue';
+import CityMap from '@/components/CityMap.vue';
 
 export default {
-  components: { Autocomplete },
+  components: { Autocomplete, CityMap },
   data() {
     return {
       loaded: false,
