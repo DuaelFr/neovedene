@@ -1,7 +1,7 @@
 const importer = require('./utils/importer');
 
 const availableImports = [
-  'insee', 'base', 'borders'
+  'insee', 'base', 'borders', 'mayors'
 ];
 
 const argv = require('yargs')

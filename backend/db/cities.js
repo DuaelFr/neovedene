@@ -23,6 +23,13 @@ const schema = Joi.object().keys({
     type: Joi.string(),
     coordinates: Joi.array(),
   }),
+  politics: Joi.object({
+    mayor: Joi.object({
+      name: Joi.string(),
+      birthdate: Joi.date(),
+      job: Joi.string(),
+    }),
+  }),
 });
 
 const cities = db.get('cities');
