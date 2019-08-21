@@ -31,7 +31,7 @@ async function runImports(list) {
 
 async function run() {
   if (!argv.which || argv.reset) {
-    await init;
+    await init();
   }
 
   let toRun = !argv.which ? availableImports : argv.which.split(',');
