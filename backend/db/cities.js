@@ -29,6 +29,7 @@ const schema = Joi.object().keys({
       birthdate: Joi.date(),
       job: Joi.string(),
     }),
+    elections: Joi.object(),
   }),
 });
 
@@ -116,6 +117,9 @@ function createOrUpdate(city) {
           if (doc.postalCode.length) {
             // Merge arrays and dedupe them.
             city.postalCode = [...new Set([...doc.postalCode, ...city.postalCode])];
+          }
+          if (doc.politics && city.politics) {
+            city.politics = {...doc.politics, ...city.politics};
           }
           return cities.update(doc, { $set: {...doc, ...city}});
         }
