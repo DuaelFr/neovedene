@@ -55,6 +55,14 @@ function buildHeaders(nbCandidates, additionalHeaders) {
   return headers;
 }
 
+function buildInseeCode(codeDpt, codeCity) {
+  const dom = ['ZA', 'ZB', 'ZC', 'ZD'];
+  if (dom.indexOf(codeDpt.toUpperCase()) > -1) {
+    codeDpt = 97;
+  }
+  return codeDpt.padStart(2, '0') + codeCity.padStart(3, '0');
+}
+
 function runEurope() {
   const nbCandidates = 34;
   const headers = buildHeaders(nbCandidates, [
@@ -83,7 +91,7 @@ function runEurope() {
       details.sort(compareVoices);
 
       return {
-        inseeCode: data['Code du département'].padStart(2, '0') + data['Code de la commune'].padStart(3, '0'),
+        inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
         politics: {
           europe_2019: {
             registered: parseInt(data['Inscrits'], 10),
@@ -129,7 +137,7 @@ function runPresidentT1() {
       details.sort(compareVoices);
 
       return {
-        inseeCode: data['Code du département'].padStart(2, '0') + data['Code de la commune'].padStart(3, '0'),
+        inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
         politics: {
           president_2017_t1: {
             registered: parseInt(data['Inscrits'], 10),
@@ -175,7 +183,7 @@ function runPresidentT2() {
       details.sort(compareVoices);
 
       return {
-        inseeCode: data['Code du département'].padStart(2, '0') + data['Code de la commune'].padStart(3, '0'),
+        inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
         politics: {
           president_2017_t2: {
             registered: parseInt(data['Inscrits'], 10),
