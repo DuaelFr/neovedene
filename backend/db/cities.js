@@ -29,9 +29,11 @@ const schema = Joi.object().keys({
       birthdate: Joi.date(),
       job: Joi.string(),
     }),
-    europe_2019: Joi.object(),
     president_2017_t1: Joi.object(),
     president_2017_t2: Joi.object(),
+    deputy_2017_t1: Joi.object(),
+    deputy_2017_t2: Joi.object(),
+    europe_2019: Joi.object(),
   }),
 });
 

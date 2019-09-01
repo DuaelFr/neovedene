@@ -5,7 +5,11 @@ function run() {
     runEurope().then(() => {
       runPresidentT1().then(() => {
         runPresidentT2().then(() => {
-          resolve();
+          runDeputyT1().then(() => {
+            runDeputyT2().then(() => {
+              resolve();
+            });
+          });
         });
       });
     });
@@ -189,6 +193,104 @@ function runPresidentT2() {
         name_if_not_set: data['Libellé de la commune'],
         politics: {
           president_2017_t2: {
+            registered: parseInt(data['Inscrits'], 10),
+            missing: parseFrenchFloat(data['% Abs/Ins']),
+            white: parseFrenchFloat(data['% Blancs/Ins']),
+            nulls: parseFrenchFloat(data['% Nuls/Ins']),
+            details: details,
+          },
+        },
+      };
+    },
+    {
+      skipLines: 4,
+      headers: headers,
+    }
+  );
+}
+
+function runDeputyT1() {
+  const nbCandidates = 27;
+  const headers = buildHeaders(nbCandidates, [
+    'N°Panneau',
+    'Sexe',
+    'Nom',
+    'Prénom',
+    'Nuance',
+    'Voix',
+    '% Voix/Ins',
+    '% Voix/Exp',
+  ]);
+
+  return importer.parseCSV(
+    '/data/elections-legislatives-2017-T1.csv',
+    (data) => {
+      let details = [];
+      for (let i = 1 ; i < (nbCandidates + 1) ; i++) {
+        details.push({
+          candidate: data['Prénom ' + i] + ' ' + data['Nom ' + i],
+          party: data['Nuance ' + i],
+          voices: parseInt(data['Voix ' + i], 10),
+          percentage_exp: parseFrenchFloat(data['% Voix/Exp ' + i]),
+          percentage_ins: parseFrenchFloat(data['% Voix/Ins ' + i]),
+        });
+      }
+      details.sort(compareVoices);
+
+      return {
+        inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
+        name_if_not_set: data['Libellé de la commune'],
+        politics: {
+          deputy_2017_t1: {
+            registered: parseInt(data['Inscrits'], 10),
+            missing: parseFrenchFloat(data['% Abs/Ins']),
+            white: parseFrenchFloat(data['% Blancs/Ins']),
+            nulls: parseFrenchFloat(data['% Nuls/Ins']),
+            details: details,
+          },
+        },
+      };
+    },
+    {
+      skipLines: 4,
+      headers: headers,
+    }
+  );
+}
+
+function runDeputyT2() {
+  const nbCandidates = 4;
+  const headers = buildHeaders(nbCandidates, [
+    'N°Panneau',
+    'Sexe',
+    'Nom',
+    'Prénom',
+    'Nuance',
+    'Voix',
+    '% Voix/Ins',
+    '% Voix/Exp',
+  ]);
+
+  return importer.parseCSV(
+    '/data/elections-legislatives-2017-T2.csv',
+    (data) => {
+      let details = [];
+      for (let i = 1 ; i < (nbCandidates + 1) ; i++) {
+        details.push({
+          candidate: data['Prénom ' + i] + ' ' + data['Nom ' + i],
+          party: data['Nuance ' + i],
+          voices: parseInt(data['Voix ' + i], 10),
+          percentage_exp: parseFrenchFloat(data['% Voix/Exp ' + i]),
+          percentage_ins: parseFrenchFloat(data['% Voix/Ins ' + i]),
+        });
+      }
+      details.sort(compareVoices);
+
+      return {
+        inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
+        name_if_not_set: data['Libellé de la commune'],
+        politics: {
+          deputy_2017_t1: {
             registered: parseInt(data['Inscrits'], 10),
             missing: parseFrenchFloat(data['% Abs/Ins']),
             white: parseFrenchFloat(data['% Blancs/Ins']),
