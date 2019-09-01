@@ -58,7 +58,7 @@ function buildHeaders(nbCandidates, additionalHeaders) {
 function buildInseeCode(codeDpt, codeCity) {
   const dom = ['ZA', 'ZB', 'ZC', 'ZD'];
   if (dom.indexOf(codeDpt.toUpperCase()) > -1) {
-    codeDpt = 97;
+    codeDpt = "97";
   }
   return codeDpt.padStart(2, '0') + codeCity.padStart(3, '0');
 }
@@ -92,6 +92,7 @@ function runEurope() {
 
       return {
         inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
+        name_if_not_set: data['Libellé de la commune'],
         politics: {
           europe_2019: {
             registered: parseInt(data['Inscrits'], 10),
@@ -138,6 +139,7 @@ function runPresidentT1() {
 
       return {
         inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
+        name_if_not_set: data['Libellé de la commune'],
         politics: {
           president_2017_t1: {
             registered: parseInt(data['Inscrits'], 10),
@@ -184,6 +186,7 @@ function runPresidentT2() {
 
       return {
         inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
+        name_if_not_set: data['Libellé de la commune'],
         politics: {
           president_2017_t2: {
             registered: parseInt(data['Inscrits'], 10),

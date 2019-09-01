@@ -104,9 +104,15 @@ function finalizeCity(city) {
   else if (!Array.isArray(city.postalCode)) {
     city.postalCode = [city.postalCode];
   }
+
+  delete city.name_if_not_set;
 }
 
 function createOrUpdate(city) {
+  let nameIfNotSet = false;
+  if (city.name_if_not_set) {
+    nameIfNotSet = city.name_if_not_set;
+  }
   finalizeCity(city);
   const result = Joi.validate(city, schema);
   if (result.error == null) {
@@ -116,6 +122,9 @@ function createOrUpdate(city) {
           return cities.insert(city);
         }
         else {
+          if (nameIfNotSet && !doc.name) {
+            city.name = nameIfNotSet;
+          }
           if (doc.postalCode.length) {
             // Merge arrays and dedupe them.
             city.postalCode = [...new Set([...doc.postalCode, ...city.postalCode])];
