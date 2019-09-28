@@ -442,7 +442,7 @@ function runDeputyT2() {
         inseeCode: buildInseeCode(data['Code du département'], data['Code de la commune']),
         name_if_not_set: data['Libellé de la commune'],
         politics: {
-          deputy_2017_t1: {
+          deputy_2017_t2: {
             registered: parseInt(data['Inscrits'], 10),
             missing: parseFrenchFloat(data['% Abs/Ins']),
             white: parseFrenchFloat(data['% Blancs/Ins']),
