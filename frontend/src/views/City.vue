@@ -21,6 +21,8 @@
         <CityMap
           v-bind:center="city.coordinates"
           v-bind:borders="city.borders"
+          v-bind:average_ranking="averageRanking"
+          v-bind:first_ranking="firstRanking"
         ></CityMap>
       </div>
       <pre style="text-align: left">{{ city }}</pre>
@@ -64,6 +66,12 @@ export default {
     wikipediaUrl() {
       const parts = this.city.wikipedia.split(':');
       return `https://${parts[0]}.wikipedia.org/wiki/${parts[1]}`;
+    },
+    averageRanking() {
+      return this.city.politics.europe_2019.average_ranking;
+    },
+    firstRanking() {
+      return this.city.politics.europe_2019.first_ranking;
     },
   },
   methods: {

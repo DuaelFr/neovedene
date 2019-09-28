@@ -18,6 +18,8 @@ export default {
   props: [
     'center',
     'borders',
+    'average_ranking',
+    'first_ranking',
   ],
   watch: {
     center() {
@@ -41,6 +43,19 @@ export default {
         .readGeometry(this.borders)
         .transform('EPSG:4326', 'EPSG:3857');
     },
+    rankingColorStroke() {
+console.log(this.first_ranking);
+      const avg = this.first_ranking + 100;
+      const g = Math.round((avg * 255) / 200);
+      const r = 255 - g;
+      return `rgba(${r},${g},0,1)`;
+    },
+    rankingColorFill() {
+      const avg = this.first_ranking + 100;
+      const g = Math.round((avg * 255) / 200);
+      const r = 255 - g;
+      return `rgba(${r},${g},0,0.1)`;
+    },
   },
   mounted() {
     this.map = new Map({
@@ -62,17 +77,15 @@ export default {
           this.bordersFeature,
         ],
       }),
-      styles: [
-        new Style({
-          stroke: new Stroke({
-            color: 'blue',
-            width: 3,
-          }),
-          fill: new Fill({
-            color: 'rgba(0, 0, 255, 0.1)',
-          }),
+      style: new Style({
+        stroke: new Stroke({
+          color: this.rankingColorStroke,
+          width: 3,
         }),
-      ],
+        fill: new Fill({
+          color: this.rankingColorFill,
+        }),
+      }),
     });
     this.map.addLayer(borderLayer);
   },
