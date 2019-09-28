@@ -31,9 +31,16 @@ function parseFrenchFloat(value) {
 }
 
 function buildHeaders(nbCandidates, additionalHeaders) {
-  let headers = [
+  const hasCirconscription = arguments[2] || false;
+  const headersCommonsStart = [
     'Code du département',
     'Libellé du département',
+  ];
+  const headersCommonsCirconscription = (hasCirconscription ? [
+    'Code de la circonscription',
+    'Libellé de la circonscription',
+  ] : []);
+  const headersCommonsEnd = [
     'Code de la commune',
     'Libellé de la commune',
     'Inscrits',
@@ -51,6 +58,8 @@ function buildHeaders(nbCandidates, additionalHeaders) {
     '% Exp/Ins',
     '% Exp/Vot',
   ];
+  let headers = [...headersCommonsStart, ...headersCommonsCirconscription, ...headersCommonsEnd];
+
   for (let i = 1 ; i < (nbCandidates + 1) ; i++) {
     for (let j = 0, n = additionalHeaders.length; j < n; j++) {
       headers.push(additionalHeaders[j] + ' ' + i);
@@ -220,7 +229,7 @@ function runDeputyT1() {
     'Voix',
     '% Voix/Ins',
     '% Voix/Exp',
-  ]);
+  ], true);
 
   return importer.parseCSV(
     '/data/elections-legislatives-2017-T1.csv',
@@ -269,7 +278,7 @@ function runDeputyT2() {
     'Voix',
     '% Voix/Ins',
     '% Voix/Exp',
-  ]);
+  ], true);
 
   return importer.parseCSV(
     '/data/elections-legislatives-2017-T2.csv',
