@@ -12,7 +12,7 @@ import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import {OSM, Vector} from 'ol/source';
 import {fromLonLat} from 'ol/proj';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Fill, Stroke, Style} from 'ol/style.js';
+import {Fill, Stroke, Style} from 'ol/style';
 
 export default {
   props: [
